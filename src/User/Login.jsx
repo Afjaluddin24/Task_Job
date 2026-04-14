@@ -25,10 +25,12 @@ function Login() {
             if(response.data.Status == "Ok")
             {
                 alert('Login Successfull');
-                console.log("Login data is ", response.data.Result)
+                console.log("Login data is ", response.data.Result);
+                localStorage.setItem("token", response.data.token);
+                localStorage.setItem("Username", response.data.Result.Name);
                 setTimeout(() => {
-                    window.location.href ='/Dashboard'
-                }, 2000);
+                    window.location.href = '/Dashboard';
+                }, 1000);
             }
             else{
                 console.log("Login data is ", response.data.Result)

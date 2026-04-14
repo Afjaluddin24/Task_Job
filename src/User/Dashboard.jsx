@@ -13,6 +13,8 @@ export default function Dashboard() {
     date: ""
   };
 
+  const Username = localStorage.getItem("Username");
+
   const GetAllTask = async () => {
     try {
       const response = await axios.get("http://localhost:1212/api/GetAll");
@@ -66,12 +68,17 @@ export default function Dashboard() {
     }
   });
 
-  
+
   useEffect(() => {
     GetAllTask();
-  }, []);
+    
+     const token = localStorage.getItem("token");
+     if (token == null) {
+       window.location.href = "/";
+     }
+   }, []);
 
-  
+
   return (
     <div className="container-fluid">
 
@@ -81,7 +88,7 @@ export default function Dashboard() {
             <h6 className="text-start">&nbsp;&nbsp;Dashboard</h6>
           </div>
           <div className="col-md-6 text-end">
-            <b>Welcome, User&nbsp;&nbsp;&nbsp;</b>
+            <b>Welcome, {Username}&nbsp;&nbsp;&nbsp;</b>
           </div>
         </div>
       </div>
@@ -90,7 +97,7 @@ export default function Dashboard() {
         <form onSubmit={handleSubmit} className="row">
           <div className="col-md-6 mt-2 mb-2">
             <b>
-              Task{" "}
+              Task
               <label className="text-danger">
                 {errors.text && touched.text ? errors.text : null}
               </label>
